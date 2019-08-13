@@ -14,16 +14,17 @@ This simple study (java code) is derived from my Team's app development project.
  But using RTT with wifi routers, we can achieve 1m difference location even in indoors.
  <br>
  *However, The formula is simple but has some constraints and these constraints are not overcome-able for now, near around.*
+ <br>
  ### Not many WIFI rtt routers are capable for now
  <br> 
- * Broadcom 802.11ac Acculocate Access Point
- * Intel Dual Band Wireless-AC 8260
- * Marvell AP-8964 802.11ac 4x4 Wave2 Concurrent Dual Band Access Point
- * MediaTek MT663X 802.11abgn/ac Ref. STA
- * Qualcomm IPQ4018 802.11ac 2-stream Dual-band, Dual-concurrent Router
- * Qualcomm IPQ8065 802.11ac 4-stream Dual-band, Dual-concurrent Router
- * Qualcomm Snapdragon 820 Development Kit
- * Realtek RTL8812BU
+> * Broadcom 802.11ac Acculocate Access Point <br>
+> * Intel Dual Band Wireless-AC 8260
+> * Marvell AP-8964 802.11ac 4x4 Wave2 Concurrent Dual Band Access Point
+> * MediaTek MT663X 802.11abgn/ac Ref. STA
+> * Qualcomm IPQ4018 802.11ac 2-stream Dual-band, Dual-concurrent Router
+> * Qualcomm IPQ8065 802.11ac 4-stream Dual-band, Dual-concurrent Router
+> * Qualcomm Snapdragon 820 Development Kit
+> * Realtek RTL8812BU
  <br>
  It is known that only up those routers are available for wifi rtt. This H/W problem can be solved in future but not for now.
  So I think this method is not well applicable for our project application which targets ordinary people in use. <br>
