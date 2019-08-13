@@ -7,9 +7,8 @@ This simple study (java code) is derived from my Team's app development project.
 check : https://www.youtube.com/watch?v=vywGgSrGODU <br> 
 https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  For summary, 
- > 1. *WiFi RTT : Far more accurate location in "indoor"* <br>
- > 2. *Dual Frequency : Far Far more accurate location also in "outdoor"*
- <br>
+ > 1. **WiFi RTT : Far more accurate location in "indoor"** <br>
+ > 2. **Dual Frequency : Far Far more accurate location also in "outdoor"** <br>
  
  1. WiFi RTT : <br>
  Location accuracy among indoor situation hasnt been better surprisingly for a while, but it's now.
@@ -19,8 +18,7 @@ https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  
  *However, The formula is simple but has some constraints and these constraints are not overcome-able for now, near around.*
  <br>
- ### Not many WIFI rtt routers are capable for now
- <br> 
+### Not many WIFI rtt routers are capable for now
  > *Broadcom 802.11ac Acculocate Access Point* <br>
  > *Intel Dual Band Wireless-AC 8260* <br>
  > *Marvell AP-8964 802.11ac 4x4 Wave2 Concurrent Dual Band Access Point* <br>
@@ -32,7 +30,7 @@ https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  <br>
  It is known that only up those routers are available for wifi rtt. This H/W problem can be solved in future but not for now.
  So I think this method is not well applicable for our project application which targets ordinary people in use. <br>
- For more details check : https://www.netspotapp.com/what-is-wifi-rtt.html
+ For more details check : https://www.netspotapp.com/what-is-wifi-rtt.html <br>
  <br>
  
  2. Dual Frequency : <br>
@@ -41,9 +39,11 @@ https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  Each of these signals are mono frequent and this is where the difference occurs. <br>
  But nowadays, some mobile phones containing Qualcomm Snapdragon late version can get dual-frequency from Satellites
  and we can get certainly accurate data. <br>
- ### However, this chips are not also common in mobile phones among most Korean users. 
- <br>
+ 
+ ### However, this chips are not also common in mobile phones among most Korean users. <br>
+ 
  *Not in Galaxy series from Korea because they use Samsungs's own chips (but in Japan and other countries, Snapdragon is used)* <br>
+ 
  check : https://developer.android.com/guide/topics/sensors/gnss.html
  L5 signal is the additional wave.
  
@@ -52,6 +52,7 @@ https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
 <br>
 
 <hr/>
+
 ## Simple overview of Location data receiver
 <br>
 For the start, there are mainly 2 ways to obtain my current location : GPS and Network <br> 
@@ -73,6 +74,7 @@ The Location data receiver module developed as follows: <br>
 Latest module such as fusedLocationProvider Client API is of course far more easy to use and well abstracted.
 
 ### <Review for each modules> 
+  
   1. LocationManager <br>
    For LocationManager, We have to consider the Location Provider first. Wheteher it could be GPS, Network or Passive.<br>
   Difference between Network and Passive is whether you use AGPS data or not. <br>
