@@ -3,28 +3,30 @@ This simple study (java code) is derived from my Team's app development project.
 
 *This document is not refined yet*
   
-1m difference Location accuracy is introduced by Google android developers in 2018, https://www.youtube.com/watch?v=vywGgSrGODU <br> https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
+1m difference Location accuracy is introduced by Google android developers in 2018. <br>
+check : https://www.youtube.com/watch?v=vywGgSrGODU <br> 
+https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  For summary, 
- * 1) WiFi RTT : Far more accurate location in "indoor"*
- * 2) Dual Frequency : Far Far more accurate location also in "outdoor"*
+ > *WiFi RTT : Far more accurate location in "indoor"* <br>
+ > *Dual Frequency : Far Far more accurate location also in "outdoor"*
  <br>
  1) Location accuracy among indoor situation hasnt been better surprisingly for a while, but it's now.
  This is possible by using "Wifi RTT". It's simple as its name because normally network location is calculated by
  signal strength and its combination. But this has a problem of possibilities of far distance but same signal strength.
- But using RTT with wifi routers, we can achieve 1m difference location even in indoors.
- <br>
+ But using RTT with wifi routers, we can achieve 1m difference location even in indoors. <br>
+ 
  *However, The formula is simple but has some constraints and these constraints are not overcome-able for now, near around.*
  <br>
  ### Not many WIFI rtt routers are capable for now
  <br> 
-> * Broadcom 802.11ac Acculocate Access Point <br>
-> * Intel Dual Band Wireless-AC 8260
-> * Marvell AP-8964 802.11ac 4x4 Wave2 Concurrent Dual Band Access Point
-> * MediaTek MT663X 802.11abgn/ac Ref. STA
-> * Qualcomm IPQ4018 802.11ac 2-stream Dual-band, Dual-concurrent Router
-> * Qualcomm IPQ8065 802.11ac 4-stream Dual-band, Dual-concurrent Router
-> * Qualcomm Snapdragon 820 Development Kit
-> * Realtek RTL8812BU
+ > *Broadcom 802.11ac Acculocate Access Point* <br>
+ > *Intel Dual Band Wireless-AC 8260* <br>
+ > *Marvell AP-8964 802.11ac 4x4 Wave2 Concurrent Dual Band Access Point* <br>
+ > *MediaTek MT663X 802.11abgn/ac Ref. STA* <br>
+ > *Qualcomm IPQ4018 802.11ac 2-stream Dual-band, Dual-concurrent Router* <br>
+ > *Qualcomm IPQ8065 802.11ac 4-stream Dual-band, Dual-concurrent Router* <br>
+ > *Qualcomm Snapdragon 820 Development Kit* <br>
+ > *Realtek RTL8812BU* <br>
  <br>
  It is known that only up those routers are available for wifi rtt. This H/W problem can be solved in future but not for now.
  So I think this method is not well applicable for our project application which targets ordinary people in use. <br>
