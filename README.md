@@ -7,10 +7,12 @@ This simple study (java code) is derived from my Team's app development project.
 check : https://www.youtube.com/watch?v=vywGgSrGODU <br> 
 https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  For summary, 
- > *WiFi RTT : Far more accurate location in "indoor"* <br>
- > *Dual Frequency : Far Far more accurate location also in "outdoor"*
+ > 1. *WiFi RTT : Far more accurate location in "indoor"* <br>
+ > 2. *Dual Frequency : Far Far more accurate location also in "outdoor"*
  <br>
- 1) Location accuracy among indoor situation hasnt been better surprisingly for a while, but it's now.
+ 
+ 1. WiFi RTT : <br>
+ Location accuracy among indoor situation hasnt been better surprisingly for a while, but it's now.
  This is possible by using "Wifi RTT". It's simple as its name because normally network location is calculated by
  signal strength and its combination. But this has a problem of possibilities of far distance but same signal strength.
  But using RTT with wifi routers, we can achieve 1m difference location even in indoors. <br>
@@ -33,16 +35,17 @@ https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
  For more details check : https://www.netspotapp.com/what-is-wifi-rtt.html
  <br>
  
- 2) Outdoor GPS accurcay difference is normally known as 15~20m thesedays in clear sky. <br>
+ 2. Dual Frequency : <br>
+ Outdoor GPS accurcay difference is normally known as 15~20m thesedays in clear sky. <br>
  We can measure our location data by getting encoded code from singal sent by Satellites. <br>
  Each of these signals are mono frequent and this is where the difference occurs. <br>
  But nowadays, some mobile phones containing Qualcomm Snapdragon late version can get dual-frequency from Satellites
  and we can get certainly accurate data. <br>
  ### However, this chips are not also common in mobile phones among most Korean users. 
  <br>
- *Not in Galaxy series from Korea because they use Samsungs's own chips (but in Japan and other countries, Snapdragon is used)
+ *Not in Galaxy series from Korea because they use Samsungs's own chips (but in Japan and other countries, Snapdragon is used)* <br>
  check : https://developer.android.com/guide/topics/sensors/gnss.html
- L5 signal is the additional wave. *
+ L5 signal is the additional wave.
  
  So my team's project which requires accurate gps data is stalled for while because of these H/W constraints. <br> 
  I guess our idea is suitable further in future 
