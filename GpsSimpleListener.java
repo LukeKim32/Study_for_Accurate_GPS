@@ -1,83 +1,136 @@
-import android.content.Context;
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-public class GPSListener implements LocationListener{
-    private static final String TAG = "Location_Debug";
+import androidx.annotation.NonNull;
 
-    private LocationManager locationManager;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.legday.sundal.helpers.GPSPermissionHelper;
+
+import java.util.List;
+
+import static android.content.Context.LOCATION_SERVICE;
+import static com.legday.sundal.helpers.PermissionUtil.checkSelfPermission;
+
+
+public class GpsSimpleListener {
+    private static final String TAG = GpsSimpleListener.class.getSimpleName();
+
+    private final int LOCATION_REQUEST_INTERVAl = 1000;
+    private final int LOCATION_REQUEST_FASTEST_INTERVAL = 500;
+
     String provider;
-    Context mContext;
+    Activity mActivity;
+
+    private FusedLocationProviderClient fusedLocationClient;
+
+    private LocationRequest mLocationRequest;
+    private LocationCallback mLocationCallback;
 
     private double latitude;
     private double longitude;
     private double altitude;
 
-    GPSListener(Context context){
-        locationManager=(LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+    GpsSimpleListener(Activity activity) {
         provider = LocationManager.GPS_PROVIDER;
-        mContext = context;
+        mActivity = activity;
+
+        //Location request 설정
+        createLocationRequest();
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(mActivity);
+        mLocationCallback = setUpLocationCallback();
     }
 
-    public void onResume(){
-        if(!requestLocation()){requestLocation();}
+
+
+    public void onResume() {
+        getLocationData();
+        Log.d(TAG, "Location update resumed .....................");
     }
 
     public void onPause(){
-        LocationManager locationManager=(LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
-        if(locationManager != null) {
-            try{
-                locationManager.removeUpdates(this);
-            } catch (RuntimeException e){
-                Log.i("GPS_Error","Error among GPSListener onPause");
-            }
+        //stop location updates
+        fusedLocationClient.removeLocationUpdates(mLocationCallback);
+    }
+
+
+    /** Location data 요청 */
+    @SuppressLint("MissingPermission")
+    private void getLocationData() {
+
+        if (checkSelfPermission(mActivity,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            GPSPermissionHelper.requestGPSPermission(mActivity);
+            return;
         }
+            //Get last location
+            getLastLocation();
+            //request location update
+            fusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null/*Looper.myLooper()*/);
     }
 
-    private boolean requestLocation(){
-        if(locationManager.getProvider(provider)!=null){
-            try{
-                locationManager.requestLocationUpdates(provider,0,0,this);
-                return true;
+    /**Location request 설정*/
+    private void createLocationRequest() {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setInterval(LOCATION_REQUEST_INTERVAl);
+        mLocationRequest.setFastestInterval(LOCATION_REQUEST_FASTEST_INTERVAL);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
+
+
+    /**처음 location 요청 전 마지막 location을 먼저 가져온다.*/
+    @SuppressWarnings("MissingPermission")
+    private void getLastLocation() {
+        OnCompleteListener onCompleteListener = new OnCompleteListener<Location>() {
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                if(task.isSuccessful() && task.getResult() != null){
+                    Location location = task.getResult();
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    altitude = location.getAltitude();
+                    Log.i(TAG,"Location last cached : lat = "+latitude+", long = "+longitude+", alt = "+altitude);
+                } else {
+                    Log.e(TAG,"Location Last listener : onCompleteListener not properly acting");
+                }
             }
-            catch(SecurityException e){
-                Log.i(TAG,"GPS request failure");
-                return false;
+        };
+        fusedLocationClient.getLastLocation().addOnCompleteListener(mActivity, onCompleteListener);
+    }
+
+
+    private LocationCallback setUpLocationCallback() {
+        return new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+
+                List<Location> locationList = locationResult.getLocations();
+
+                if (locationList.size() > 0) {
+                    Location location = locationList.get(locationList.size() - 1);
+                    //location = locationList.get(0);
+
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    altitude = location.getAltitude();
+                    Log.i(TAG, "Location updated : lat = " + latitude + ", long = " + longitude + ", alt = " + altitude);
+
+                }
+
             }
-        }
-        return false;
-    }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        altitude = location.getAltitude();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        if(status==LocationProvider.OUT_OF_SERVICE) {
-            Toast.makeText(mContext,"[GPS]out of service",Toast.LENGTH_SHORT).show();
-        } else if(status==LocationProvider.TEMPORARILY_UNAVAILABLE) {
-            Toast.makeText(mContext,"[GPS]unavailiable for now",Toast.LENGTH_SHORT).show();
-        } else if(status==LocationProvider.AVAILABLE) {
-            Toast.makeText(mContext,"[GPS]is availiable!",Toast.LENGTH_SHORT).show();
-        }
-        requestLocation();
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
+        };
     }
 
     EcefCoords getCoordsofEcef() {
