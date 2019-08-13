@@ -12,20 +12,27 @@ so we should choose wheter to use both or just one appropriately.
 For my team project, we needed more accurate location data for use, 
 so Network data was unappropriate for its data difference.
 
-The GPS listener module developed as follows:
+<br/>
+<hr/>
+## Simple overview of Location data receiver
+
+
+The Location data receiver module developed as follows: <br/>
  LocationManager (android module) -> fusedLocationProvider API (Google play services) -> fusedLocationProvider Client API (Google play services)
  
+<br/>
 Latest module such as fusedLocationProvider Client API is of course far more easy to use and well abstracted.
+<br/>
 
-<Review for each modules>
-  1. LocationManager
-   For LocationManager, We have to consider the Location Provider first. Wheteher it could be GPS, Network or Passive.
-  Difference between Network and Passive is whether you use AGPS data or not.
-  check Details about each provider : https://developerlife.com/2010/10/20/gps/#passive--cellid-wifi-macid
-  -> First, choose which Provider will be used (availability can be checked for 'best provider')
-  -> Second, we can choose the 'criteria' of getting location data - accuracy, battery-usage, cellular-data-used etc.
-  -> Third, Set up locationListener interface for the data received
-            We can use callbacks and other functions for data process
+### <Review for each modules> <br/>
+  1. LocationManager <br/>
+   For LocationManager, We have to consider the Location Provider first. Wheteher it could be GPS, Network or Passive.<br/>
+  Difference between Network and Passive is whether you use AGPS data or not. 
+  check Details about each provider : https://developerlife.com/2010/10/20/gps/#passive--cellid-wifi-macid <br/>
+  -> First, choose which Provider will be used (availability can be checked for 'best provider') <br/>
+  -> Second, we can choose the 'criteria' of getting location data - accuracy, battery-usage, cellular-data-used etc. <br/>
+  -> Third, Set up locationListener interface for the data received <br/>
+            We can use callbacks and other functions for data process <br/>
   
   It is not difficult to use, but still complex than later two because we have to set up more modules for use.
   
