@@ -1,23 +1,65 @@
 # Study_for_Accurate_GPS
 This simple study (java code) is derived from my Team's app development project. For better GPS accuracy
 
-  For the start, there are mainly 2 ways to obtain my current location : GPS and Network
-(GPS data can also be referred in other ways like GNSS or else, but I will call it as 'GPS' for simple.)
-GPS data are received from Satellaties available, and Network data can be received by Cellular or Wi-fi routers.
+*This document is not refined yet*
+  
+1m difference Location accuracy is introduced by Google android developers in 2018, https://www.youtube.com/watch?v=vywGgSrGODU <br> https://www.gpsworld.com/how-to-achieve-1-meter-accuracy-in-android/ <br>
+ For summary, 
+ * 1) WiFi RTT : Far more accurate location in "indoor"*
+ * 2) Dual Frequency : Far Far more accurate location also in "outdoor"*
+ <br>
+ 1) Location accuracy among indoor situation hasnt been better surprisingly for a while, but it's now.
+ This is possible by using "Wifi RTT". It's simple as its name because normally network location is calculated by
+ signal strength and its combination. But this has a problem of possibilities of far distance but same signal strength.
+ But using RTT with wifi routers, we can achieve 1m difference location even in indoors.
+ <br>
+ *However, The formula is simple but has some constraints and these constraints are not overcome-able for now, near around.*
+ ### Not many WIFI rtt routers are capable for now
+ <br> 
+ * Broadcom 802.11ac Acculocate Access Point
+ * Intel Dual Band Wireless-AC 8260
+ * Marvell AP-8964 802.11ac 4x4 Wave2 Concurrent Dual Band Access Point
+ * MediaTek MT663X 802.11abgn/ac Ref. STA
+ * Qualcomm IPQ4018 802.11ac 2-stream Dual-band, Dual-concurrent Router
+ * Qualcomm IPQ8065 802.11ac 4-stream Dual-band, Dual-concurrent Router
+ * Qualcomm Snapdragon 820 Development Kit
+ * Realtek RTL8812BU
+ <br>
+ It is known that only up those routers are available for wifi rtt. This H/W problem can be solved in future but not for now.
+ So I think this method is not well applicable for our project application which targets ordinary people in use. <br>
+ For more details check : https://www.netspotapp.com/what-is-wifi-rtt.html
+ <br>
+ 
+ 2) Outdoor GPS accurcay difference is normally known as 15~20m thesedays in clear sky. <br>
+ We can measure our location data by getting encoded code from singal sent by Satellites. <br>
+ Each of these signals are mono frequent and this is where the difference occurs. <br>
+ But nowadays, some mobile phones containing Qualcomm Snapdragon late version can get dual-frequency from Satellites
+ and we can get certainly accurate data. <br>
+ ### However, this chips are not also common in mobile phones among most Korean users. 
+ <br>
+ *Not in Galaxy series from Korea because they use Samsungs's own chips (but in Japan and other countries, Snapdragon is used)
+ check : https://developer.android.com/guide/topics/sensors/gnss.html
+ L5 signal is the additional wave. *
+ 
+ So my team's project which requires accurate gps data is stalled for while because of these H/W constraints. <br> 
+ I guess our idea is suitable further in future 
+<br>
 
-Normally, GPS data are more accurate than Network received data, 
-but there are pros and cons like GPS is mainly-outdoor-available,
-so we should choose wheter to use both or just one appropriately.
-
-For my team project, we needed more accurate location data for use, 
-so Network data was unappropriate for its data difference.
-
-<br/>
 <hr/>
 ## Simple overview of Location data receiver
+<br>
+For the start, there are mainly 2 ways to obtain my current location : GPS and Network <br> 
+(GPS data can also be referred in other ways like GNSS or else, but I will call it as 'GPS' for simple.) <br>
+GPS data are received from Satellaties available, and Network data can be received by Cellular or Wi-fi routers. <br>
 
+Normally, GPS data are more accurate than Network received data, <br>
+but there are pros and cons like GPS is mainly-outdoor-available, <br>
+so we should choose wheter to use both or just one appropriately. <br>
 
-The Location data receiver module developed as follows: <br/>
+For my team project, we needed more accurate location data for use, <br> 
+so Network data was unappropriate for its data difference. <br>
+<br>
+The Location data receiver module developed as follows: <br>
  LocationManager (android module) <br>
  -> fusedLocationProvider API (Google play services) <br>
  -> fusedLocationProvider Client API (Google play services)
